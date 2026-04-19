@@ -20,6 +20,9 @@ builder.Services.AddScoped<HabitTracker.API.Features.Authentication.Strategies.E
 builder.Services.AddScoped<HabitTracker.API.Features.Authentication.Strategies.GoogleOAuthStrategy>();
 builder.Services.AddScoped<HabitTracker.API.Features.Authentication.Strategies.AuthStrategyFactory>();
 
+// Register Health Checks
+builder.Services.AddHealthChecks();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -46,5 +49,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Map Health Check Endpoint
+app.MapHealthChecks("/api/health");
 
 app.Run();
